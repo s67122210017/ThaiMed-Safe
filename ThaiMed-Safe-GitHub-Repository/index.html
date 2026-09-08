@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThaiMed-Safe - ระบบตรวจเช็กความปลอดภัยยาสมุนไพร x ยาแผนปัจจุบัน</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>ThaiMed-Safe</span>
+                <span class="badge-ai">AI Hackathon 2569</span>
+            </div>
+            <div class="user-mode">
+                <button class="mode-btn active" id="btn-patient" onclick="setMode('patient')">ประชาชน</button>
+                <button class="mode-btn" id="btn-doctor" onclick="setMode('doctor')">แพทย์/เภสัชกร</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <div class="container">
+        <div class="hero-banner">
+            <h1>ThaiMed-Safe : ระบบวิเคราะห์ความปลอดภัย ยาสมุนไพร x ยาแผนปัจจุบัน</h1>
+            <p>ยกระดับภูมิปัญญาการแพทย์แผนไทย ด้วยนวัตกรรม AI เพื่อความปลอดภัยของผู้ป่วย</p>
+        </div>
+
+        <!-- Inputs Grid -->
+        <div class="checker-grid">
+            <!-- Herb Input Card -->
+            <div class="input-card">
+                <div class="card-header herb">
+                    <i class="fa-solid fa-mortar-pestle fa-lg"></i>
+                    <h2>สมุนไพร / ยาแผนไทย</h2>
+                </div>
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="herb-input" placeholder="พิมพ์ชื่อแล้วกด Enter...">
+                </div>
+                <div class="selected-list" id="herb-chips"></div>
+                <div class="presets">
+                    <span>ตัวอย่างสมุนไพรยอดนิยม (กดเพื่อเลือก):</span>
+                    <div class="preset-tags">
+                        <button class="preset-btn" onclick="addChip('ฟ้าทะลายโจร', 'herb')">+ ฟ้าทะลายโจร</button>
+                        <button class="preset-btn" onclick="addChip('ขมิ้นชัน', 'herb')">+ ขมิ้นชัน</button>
+                        <button class="preset-btn" onclick="addChip('กระชายดำ', 'herb')">+ กระชายดำ</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modern Drug Input Card -->
+            <div class="input-card">
+                <div class="card-header modern">
+                    <i class="fa-solid fa-pills fa-lg"></i>
+                    <h2>ยาแผนปัจจุบัน / ยาประจำตัว</h2>
+                </div>
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="drug-input" placeholder="พิมพ์ชื่อแล้วกด Enter...">
+                </div>
+                <div class="selected-list" id="drug-chips"></div>
+                <div class="presets">
+                    <span>ตัวอย่างยาประจำตัว (กดเพื่อเลือก):</span>
+                    <div class="preset-tags">
+                        <button class="preset-btn" onclick="addChip('Warfarin (ยาละลายลิ่มเลือด)', 'drug')">+ Warfarin</button>
+                        <button class="preset-btn" onclick="addChip('Aspirin', 'drug')">+ Aspirin</button>
+                        <button class="preset-btn" onclick="addChip('Metformin (ยาลดน้ำตาล)', 'drug')">+ Metformin</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="action-container">
+            <button class="btn-analyze" onclick="analyzeInteraction()">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                ให้ AI ประมวลผลความเสี่ยง
+            </button>
+        </div>
+
+        <!-- Result Card Section -->
+        <div class="result-card" id="result-section">
+            <div class="result-status danger" id="status-box">
+                <i class="fa-solid fa-triangle-exclamation status-icon" id="status-icon"></i>
+                <div class="status-info">
+                    <h3 id="status-title">พบความเสี่ยงระดับสูง (High Risk)</h3>
+                    <p id="status-desc">ยาสมุนไพรและยาแผนปัจจุบันที่เลือกมีอันตรายเมื่อทานร่วมกัน</p>
+                </div>
+            </div>
+
+            <h4 style="margin-bottom: 1rem;">รายละเอียดผลการวิเคราะห์จากระบบ AI:</h4>
+            
+            <div id="details-list"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
